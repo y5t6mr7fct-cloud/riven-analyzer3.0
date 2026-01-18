@@ -55,7 +55,10 @@
     <option value="faction_infested">+Damage vs Infested</option>
     <option value="faction_corrupted">+Damage vs Corrupted</option>
   </select>
-  <input type="number" id="buff1-value" placeholder="%" min="0" max="100">
+<div class="buff-input">
+  <input type="number" id="buff1-value" min="0" max="300">
+  <span id="buff1-unit">%</span>
+</div>
 
   <!-- Buff 2 -->
   <label>buff 2:</label>
@@ -85,8 +88,10 @@
     <option value="faction_infested">+Damage vs Infested</option>
     <option value="faction_corrupted">+Damage vs Corrupted</option>
   </select>
-  <input type="number" id="buff2-value" placeholder="%" min="0" max="100">
-
+<div class="buff-input">
+  <input type="number" id="buff1-value" min="0" max="300">
+  <span id="buff1-unit">%</span>
+</div>
   <!-- Buff 3 -->
   <label>buff 3:</label>
   <select id="buff3-type">
@@ -115,8 +120,10 @@
     <option value="faction_infested">+Damage vs Infested</option>
     <option value="faction_corrupted">+Damage vs Corrupted</option>
   </select>
-  <input type="number" id="buff3-value" placeholder="%" min="0" max="100">
-
+<div class="buff-input">
+  <input type="number" id="buff1-value" min="0" max="300">
+  <span id="buff1-unit">%</span>
+</div>
   <!-- Debuff -->
   <label>Debuff:</label>
   <select id="debuff-type">
@@ -145,7 +152,10 @@
     <option value="faction_infested">-Damage vs Infested</option>
     <option value="faction_corrupted">-Damage vs Corrupted</option>
   </select>
-  <input type="number" id="debuff-value" placeholder="%" min="0" max="100">
+<div class="buff-input">
+  <input type="number" id="buff1-value" min="0" max="300">
+  <span id="buff1-unit">%</span>
+</div>
 
  <label>Livello Mod Riven (0-10):</label>
     <input type="number" id="rivenLevel" min="0" max="10" placeholder="0">
