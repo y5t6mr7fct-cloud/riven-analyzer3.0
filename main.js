@@ -150,6 +150,7 @@ function showResult(w) {
 // FUNZIONE AVANZATA: BUFF/DEBUFF + LIVELLO RIVEN + PREZZO DINAMICO
 document.getElementById("applyRiven").addEventListener("click", () => {
   let multiplier = 1;
+  let factionMultiplier = 1;
 
   // 3 BUFF
  for (let i = 1; i <= 3; i++) {
@@ -157,11 +158,15 @@ document.getElementById("applyRiven").addEventListener("click", () => {
   const value = parseFloat(document.getElementById(`buff${i}-value`).value) || 0;
 
   if (value > 0) {
-    // esempio di logica basica: alcuni tipi pesano di più
-    if (type === "damage" || type === "crit" || type === "critdmg") {
-      multiplier += value / 100 * 1.2; // bonus +20% se tipo "importante"
-    } else {
-      multiplier += value / 100;       // altrimenti +1:1
+  // BUFF FAZIONE → MOLTIPLICATORE REALE
+  if (type.startsWith("faction")) {
+    factionMultiplier *= 1 + value / 100; // 55 → x1.55
+  }
+  // BUFF NORMALI (COME PRIMA)
+  else if (type === "damage" || type === "crit" || type === "critdmg") {
+    multiplier += value / 100 * 1.2;
+  } else {
+    multiplier += value / 100;
     }
   }
 }
@@ -170,7 +175,10 @@ document.getElementById("applyRiven").addEventListener("click", () => {
 const debuffType = document.getElementById("debuff-type").value;
 const debuffValue = parseFloat(document.getElementById("debuff-value").value) || 0;
 if (debuffValue > 0) {
-  if (debuffType === "damage" || debuffType === "crit" || debuffType === "critdmg") {
+  if (debuffType.startsWith("faction")) {
+    factionMultiplier /= 1 + debuffValue / 100; // -55 → /1.55
+  }
+  else if (debuffType === "damage" || debuffType === "crit" || debuffType === "critdmg") {
     multiplier -= debuffValue / 100 * 1.2;
   } else {
     multiplier -= debuffValue / 100;
@@ -182,12 +190,12 @@ if (debuffValue > 0) {
 
   // META SCORE
   const baseMeta = parseFloat(document.getElementById("res-meta").textContent);
-  const adjustedMeta = (baseMeta * multiplier).toFixed(2);
+  const adjustedMeta = (baseMeta * multiplier * factionMultiplier).toFixed(2);
   document.getElementById("res-meta").textContent = adjustedMeta;
 
   // PREZZO dinamico
   const baseDisp = parseFloat(document.getElementById("res-disp").textContent);
-  const priceMin = Math.round(100 + baseDisp * 200 * multiplier);
-  const priceMax = Math.round(500 + baseDisp * 600 * multiplier);
+  const priceMin = Math.round(100 + baseDisp * 200 * multiplier * factionMultiplier);
+  const priceMax = Math.round(500 + baseDisp * 600 * multiplier * factionMultiplier);
   document.getElementById("res-price").innerText = priceMin + " - " + priceMax + " plat";
 });
