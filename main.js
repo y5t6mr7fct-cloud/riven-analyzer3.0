@@ -95,14 +95,11 @@ const weapons = [
 function formatDisplay(type, value, isDebuff = false) {
   if (!type || isNaN(value)) return "";
 
-  // Se è un buff/debuff fazione, mostra direttamente x valore
   if (type.startsWith("faction")) {
-    return "x" + value.toFixed(2); // mostra quello che scrivi, es. 1.55
+    let multiplierValue = value;
+    if(multiplierValue > 1) multiplierValue = 1 + multiplierValue / 100;
+    return "x" + multiplierValue.toFixed(2);
   }
-
-  // Buff normali percentuali
-  return (isDebuff ? "-" : "+") + value + "%";
-}
 
   return (isDebuff ? "-" : "+") + value + "%";
 }
