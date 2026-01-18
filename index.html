@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Warframe Riven Analyzer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+    <h1>Warframe Riven Analyzer</h1>
+    <p class="subtitle">Analizza il valore delle mod Riven</p>
+
+    <!-- INPUT ARMA + AUTOCOMPLETE -->
+    <div class="autocomplete">
+      <input
+        type="text"
+        id="weaponInput"
+        placeholder="Scrivi il nome dell'arma..."
+        autocomplete="off"
+      >
+      <div id="suggestions" class="suggestions hidden"></div>
+    </div>
+  
+    <!-- BUFF / DEBUFF -->
+    <div class="riven-stats">
+  <h3>Buff / Debuff</h3>
+
+  <!-- Buff 1 -->
+  <label>buff 1:</label>
+  <select id="buff1-type">
+    <option value="">-- Seleziona Buff --</option>
+    <option value="damage">+Damage</option>
+    <option value="crit">+Crit Chance</option>
+    <option value="critdmg">+Crit Damage</option>
+    <option value="status">+Status</option>
+    <option value="fire_rate">+Fire Rate</option>
+    <option value="magazine">+Magazine</option>
+    <option value="reload">+Reload Speed</option>
+    <option value="puncture">+Puncture</option>
+    <option value="impact">+Impact</option>
+    <option value="slash">+Slash</option>
+    <option value="toxin">+Toxin</option>
+    <option value="electricity">+Electricity</option>
+    <option value="heat">+Heat</option>
+    <option value="cold">+Cold</option>
+    <option value="radiation">+Radiation</option>
+    <option value="viral">+Viral</option>
+    <option value="corrosive">+Corrosive</option>
+    <option value="gas">+Gas</option>
+    <option value="blast">+Blast</option>
+  </select>
+  <input type="number" id="buff1-value" placeholder="%" min="0" max="100">
+
+  <!-- Buff 2 -->
+  <label>buff 2:</label>
+  <select id="buff2-type">
+    <option value="">-- Seleziona Buff --</option>
+    <option value="damage">+Damage</option>
+    <option value="crit">+Crit Chance</option>
+    <option value="critdmg">+Crit Damage</option>
+    <option value="status">+Status</option>
+    <option value="fire_rate">+Fire Rate</option>
+    <option value="magazine">+Magazine</option>
+    <option value="reload">+Reload Speed</option>
+    <option value="puncture">+Puncture</option>
+    <option value="impact">+Impact</option>
+    <option value="slash">+Slash</option>
+    <option value="toxin">+Toxin</option>
+    <option value="electricity">+Electricity</option>
+    <option value="heat">+Heat</option>
+    <option value="cold">+Cold</option>
+    <option value="radiation">+Radiation</option>
+    <option value="viral">+Viral</option>
+    <option value="corrosive">+Corrosive</option>
+    <option value="gas">+Gas</option>
+    <option value="blast">+Blast</option>
+  </select>
+  <input type="number" id="buff2-value" placeholder="%" min="0" max="100">
+
+  <!-- Buff 3 -->
+  <label>buff 3:</label>
+  <select id="buff3-type">
+    <option value="">-- Seleziona Buff --</option>
+    <option value="damage">+Damage</option>
+    <option value="crit">+Crit Chance</option>
+    <option value="critdmg">+Crit Damage</option>
+    <option value="status">+Status</option>
+    <option value="fire_rate">+Fire Rate</option>
+    <option value="magazine">+Magazine</option>
+    <option value="reload">+Reload Speed</option>
+    <option value="puncture">+Puncture</option>
+    <option value="impact">+Impact</option>
+    <option value="slash">+Slash</option>
+    <option value="toxin">+Toxin</option>
+    <option value="electricity">+Electricity</option>
+    <option value="heat">+Heat</option>
+    <option value="cold">+Cold</option>
+    <option value="radiation">+Radiation</option>
+    <option value="viral">+Viral</option>
+    <option value="corrosive">+Corrosive</option>
+    <option value="gas">+Gas</option>
+    <option value="blast">+Blast</option>
+  </select>
+  <input type="number" id="buff3-value" placeholder="%" min="0" max="100">
+
+  <!-- Debuff -->
+  <label>Debuff:</label>
+  <select id="debuff-type">
+    <option value="">-- Seleziona Debuff --</option>
+    <option value="damage">-Damage</option>
+    <option value="crit">-Crit Chance</option>
+    <option value="critdmg">-Crit Damage</option>
+    <option value="status">-Status</option>
+    <option value="fire_rate">-Fire Rate</option>
+    <option value="magazine">-Magazine</option>
+    <option value="reload">-Reload Speed</option>
+    <option value="puncture">-Puncture</option>
+    <option value="impact">-Impact</option>
+    <option value="slash">-Slash</option>
+    <option value="toxin">-Toxin</option>
+    <option value="electricity">-Electricity</option>
+    <option value="heat">-Heat</option>
+    <option value="cold">-Cold</option>
+    <option value="radiation">-Radiation</option>
+    <option value="viral">-Viral</option>
+    <option value="corrosive">-Corrosive</option>
+    <option value="gas">-Gas</option>
+    <option value="blast">-Blast</option>
+  </select>
+  <input type="number" id="debuff-value" placeholder="%" min="0" max="100">
+
+ <label>Livello Riven (0-10):</label>
+    <input type="number" id="rivenLevel" min="0" max="10" placeholder="0">
+
+  <button id="applyRiven">Applica Riven</button>
+</div>
+    <!-- RISULTATI -->
+    <div id="result" class="result hidden">
+      <p><strong>Arma:</strong> <span id="res-name"></span></p>
+      <p><strong>Categoria:</strong> <span id="res-type"></span></p>
+      <p><strong>Riven Disposition:</strong> <span id="res-disp"></span></p>
+      <p><strong>Meta Score:</strong> <span id="res-meta"></span></p>
+      <p><strong>Prezzo stimato:</strong> <span id="res-price"></span> plat</p>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

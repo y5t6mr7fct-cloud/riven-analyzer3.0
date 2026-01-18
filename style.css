@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #020617, #020617);
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 30px;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  color: #38bdf8;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* INPUT AUTOCOMPLETE */
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+/* AUTOCOMPLETE */
+.autocomplete {
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+  top: 48px;
+  width: 100%;
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.suggestion {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #1e293b;
+}
+
+.suggestion:hover {
+  background: #1e293b;
+}
+
+.suggestion small {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+/* RISULTATI */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* BUFF / DEBUFF */
+.riven-stats {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #020617;
+}
+
+.riven-stats h3 {
+  margin: 0 0 10px 0;
+  color: #38bdf8;
+  font-size: 1rem;
+}
+
+.riven-stats label {
+  display: block;
+  margin-top: 10px;
+  color: #94a3b8;
+}
+
+.riven-stats input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+}
+
+.riven-stats button {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #38bdf8;
+  color: #020617;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.riven-stats button:hover {
+  background-color: #0ea5e9;
+}
