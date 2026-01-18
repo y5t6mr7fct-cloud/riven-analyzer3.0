@@ -235,7 +235,12 @@ document.getElementById("applyRiven").addEventListener("click", () => {
     if (value > 0) {
       // BUFF FAZIONE → MOLTIPLICATORE REALE
      if (type.startsWith("faction")) {
-  factionMultiplier *= value; // usa il valore inserito così com'è
+  let multiplierValue = value;
+// se l'utente inserisce un numero grande (>3), lo interpretiamo come percentuale
+if (multiplierValue > 3) {
+  multiplierValue = 1 + multiplierValue / 100;
+}
+factionMultiplier *= multiplierValue;
 }
       // BUFF NORMALI (COME PRIMA)
       else if (type === "damage" || type === "crit" || type === "critdmg") {
@@ -252,7 +257,11 @@ document.getElementById("applyRiven").addEventListener("click", () => {
   const debuffValue = parseFloat(rawDebuff) || 0;
   if (debuffValue > 0) {
     if (debuffType.startsWith("faction")) {
-  factionMultiplier /= debuffValue; // usa direttamente il valore
+  let debuffMultiplier = debuffValue;
+  if (debuffMultiplier > 3) {
+    debuffMultiplier = 1 + debuffMultiplier / 100;
+  }
+  factionMultiplier /= debuffMultiplier;
 }
     else if (debuffType === "damage" || debuffType === "crit" || debuffType === "critdmg") {
       multiplier -= debuffValue / 100 * 1.2;
