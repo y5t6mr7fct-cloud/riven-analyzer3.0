@@ -90,10 +90,55 @@ const weapons = [
   { name: "Venka Prime", type: "Melee", disposition: 0.80 }
 ];
 
+// -----------------------------
+// FUNZIONE DI FORMATTAZIONE
+function formatDisplay(type, value, isDebuff = false) {
+  if (!type || isNaN(value)) return "";
+
+  if (type.startsWith("faction")) {
+    let multiplierValue = value;
+    if(multiplierValue > 1) multiplierValue = 1 + multiplierValue / 100;
+    return "x" + multiplierValue.toFixed(2);
+  }
+
+  return (isDebuff ? "-" : "+") + value + "%";
+}
+// -----------------------------
+
 // ELEMENTI HTML
 const input = document.getElementById("weaponInput");
 const suggestionsBox = document.getElementById("suggestions");
 const resultBox = document.getElementById("result");
+
+// LISTENER LIVE PER I BUFF
+for (let i = 1; i <= 3; i++) {
+  const typeEl = document.getElementById(`buff${i}-type`);
+  const valueEl = document.getElementById(`buff${i}-value`);
+  const displayEl = document.getElementById(`buff${i}-display`);
+
+  function update() {
+    const type = typeEl.value;
+    const value = parseFloat(valueEl.value);
+    displayEl.textContent = formatDisplay(type, value, false);
+  }
+
+  typeEl.addEventListener("change", update);
+  valueEl.addEventListener("input", update);
+}
+
+// LISTENER LIVE PER IL DEBUFF
+const dType = document.getElementById("debuff-type");
+const dValue = document.getElementById("debuff-value");
+const dDisplay = document.getElementById("debuff-display");
+
+function updateDebuff() {
+  const type = dType.value;
+  const value = parseFloat(dValue.value);
+  dDisplay.textContent = formatDisplay(type, value, true);
+}
+
+dType.addEventListener("change", updateDebuff);
+dValue.addEventListener("input", updateDebuff);
 
 // AUTOCOMPLETE
 input.addEventListener("input", () => {
@@ -138,6 +183,36 @@ function showResult(w) {
   document.getElementById("res-disp").textContent = w.disposition;
   document.getElementById("res-meta").textContent = metaScore;
 
+// BUFF
+for (let i = 1; i <= 3; i++) {
+  const typeEl = document.getElementById(`buff${i}-type`);
+  const valueEl = document.getElementById(`buff${i}-value`);
+  const displayEl = document.getElementById(`buff${i}-display`);
+
+  function update() {
+    const type = typeEl.value;
+    const value = parseFloat(valueEl.value);
+    displayEl.textContent = formatDisplay(type, value, false);
+  }
+
+  typeEl.addEventListener("change", update);
+  valueEl.addEventListener("input", update);
+}
+
+// DEBUFF
+const dType = document.getElementById("debuff-type");
+const dValue = document.getElementById("debuff-value");
+const dDisplay = document.getElementById("debuff-display");
+
+function updateDebuff() {
+  const type = dType.value;
+  const value = parseFloat(dValue.value);
+  dDisplay.textContent = formatDisplay(type, value, true);
+}
+
+dType.addEventListener("change", updateDebuff);
+dValue.addEventListener("input", updateDebuff);
+  
   // Calcolo prezzo di base senza buff/debuff
   const baseDisp = w.disposition;
   const priceMin = Math.round(100 + baseDisp * 200);
