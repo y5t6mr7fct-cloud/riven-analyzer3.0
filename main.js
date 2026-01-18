@@ -153,40 +153,50 @@ document.getElementById("applyRiven").addEventListener("click", () => {
   let factionMultiplier = 1;
 
   // 3 BUFF
- for (let i = 1; i <= 3; i++) {
-  const type = document.getElementById(`buff${i}-type`).value;  // tipo di buff
-  const value = parseFloat(document.getElementById(`buff${i}-value`).value) || 0;
+  for (let i = 1; i <= 3; i++) {
+    const type = document.getElementById(`buff${i}-type`).value;
+    const value = parseFloat(document.getElementById(`buff${i}-value`).value) || 0;
 
-  if (value > 0) {
-  // BUFF FAZIONE → MOLTIPLICATORE REALE
-  if (type.startsWith("faction")) {
-    factionMultiplier *= 1 + value / 100; // 55 → x1.55
-  }
-  // BUFF NORMALI (COME PRIMA)
-  else if (type === "damage" || type === "crit" || type === "critdmg") {
-    multiplier += value / 100 * 1.2;
-  } else {
-    multiplier += value / 100;
+    if (value > 0) {
+      // BUFF FAZIONE → MOLTIPLICATORE REALE
+      if (type.startsWith("faction")) {
+        let multiplierValue = value;
+        // se l'utente scrive tipo 55, converte in 1.55
+        if(multiplierValue > 1) {
+          multiplierValue = 1 + multiplierValue / 100;
+        }
+        factionMultiplier *= multiplierValue;
+      }
+      // BUFF NORMALI (COME PRIMA)
+      else if (type === "damage" || type === "crit" || type === "critdmg") {
+        multiplier += value / 100 * 1.2;
+      } else {
+        multiplier += value / 100;
+      }
     }
   }
-}
 
-// Debuff
-const debuffType = document.getElementById("debuff-type").value;
-const debuffValue = parseFloat(document.getElementById("debuff-value").value) || 0;
-if (debuffValue > 0) {
-  if (debuffType.startsWith("faction")) {
-    factionMultiplier /= 1 + debuffValue / 100; // -55 → /1.55
+  // Debuff
+  const debuffType = document.getElementById("debuff-type").value;
+  const debuffValue = parseFloat(document.getElementById("debuff-value").value) || 0;
+  if (debuffValue > 0) {
+    if (debuffType.startsWith("faction")) {
+      let debuffMultiplier = debuffValue;
+      if(debuffMultiplier > 1) {
+        debuffMultiplier = 1 + debuffMultiplier / 100;
+      }
+      factionMultiplier /= debuffMultiplier;
+    }
+    else if (debuffType === "damage" || debuffType === "crit" || debuffType === "critdmg") {
+      multiplier -= debuffValue / 100 * 1.2;
+    } else {
+      multiplier -= debuffValue / 100;
+    }
   }
-  else if (debuffType === "damage" || debuffType === "crit" || debuffType === "critdmg") {
-    multiplier -= debuffValue / 100 * 1.2;
-  } else {
-    multiplier -= debuffValue / 100;
-  }
-}
+
   // LIVELLO RIVEN
   const rivenLevel = parseInt(document.getElementById("rivenLevel").value) || 0;
-  multiplier *= 1 + rivenLevel * 0.05; // ogni livello +5%
+  multiplier *= 1 + rivenLevel * 0.05;
 
   // META SCORE
   const baseMeta = parseFloat(document.getElementById("res-meta").textContent);
