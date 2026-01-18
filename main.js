@@ -105,11 +105,6 @@ function formatDisplay(type, value, isDebuff = false) {
 }
 // -----------------------------
 
-// ELEMENTI HTML
-const input = document.getElementById("weaponInput");
-const suggestionsBox = document.getElementById("suggestions");
-const resultBox = document.getElementById("result");
-
 // LISTENER LIVE PER I BUFF
 for (let i = 1; i <= 3; i++) {
   const typeEl = document.getElementById(`buff${i}-type`);
@@ -139,6 +134,11 @@ function updateDebuff() {
 
 dType.addEventListener("change", updateDebuff);
 dValue.addEventListener("input", updateDebuff);
+
+// ELEMENTI HTML
+const input = document.getElementById("weaponInput");
+const suggestionsBox = document.getElementById("suggestions");
+const resultBox = document.getElementById("result");
 
 // AUTOCOMPLETE
 input.addEventListener("input", () => {
