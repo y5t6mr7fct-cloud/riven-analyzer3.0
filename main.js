@@ -230,8 +230,8 @@ document.getElementById("applyRiven").addEventListener("click", () => {
   // 3 BUFF
   for (let i = 1; i <= 3; i++) {
     const type = document.getElementById(`buff${i}-type`).value;
-    const value = parseFloat(document.getElementById(`buff${i}-value`).value) || 0;
-
+    const rawValue = document.getElementById(`buff${i}-value`).value.replace(",", ".");
+    const value = parseFloat(rawValue) || 0;
     if (value > 0) {
       // BUFF FAZIONE → MOLTIPLICATORE REALE
      if (type.startsWith("faction")) {
@@ -248,7 +248,8 @@ document.getElementById("applyRiven").addEventListener("click", () => {
 
   // Debuff
   const debuffType = document.getElementById("debuff-type").value;
-  const debuffValue = parseFloat(document.getElementById("debuff-value").value) || 0;
+  const rawDebuff = document.getElementById("debuff-value").value.replace(",", ".");
+  const debuffValue = parseFloat(rawDebuff) || 0;
   if (debuffValue > 0) {
     if (debuffType.startsWith("faction")) {
   factionMultiplier /= debuffValue; // usa direttamente il valore
